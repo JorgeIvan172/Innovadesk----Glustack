@@ -12,12 +12,20 @@ import {
   Image,
   Center,
 } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 function Register() {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+
+  const handleBackPress = () => {
+    navigation.goBack(); // Volver a la pantalla anterior
+  };
 
   const handleRegister = () => {
     // Realiza la solicitud Axios para registrar usuarios aquí
@@ -124,6 +132,16 @@ function Register() {
             <Button size='sm' backgroundColor={'#B35340'} onPress={handleRegister}>
               <ButtonText>Register</ButtonText>
             </Button>
+
+            <Box flexDirection='row'>
+                <Button variant='link' p='$0' size='sm' onPress={handleBackPress}>
+                  {/* ArrowLeftIcon is imported from 'lucide-react-native' */}
+                  <ButtonText color={'#B35340'}
+                  >
+                    Back
+                  </ButtonText>
+                </Button>
+              </Box>
           </VStack>
         </Box>
       </Center>

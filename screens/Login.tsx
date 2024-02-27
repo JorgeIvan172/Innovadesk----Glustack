@@ -3,14 +3,17 @@ import { useAuth } from '../Context/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, GluestackUIProvider, Text, Center, VStack, Heading, Input, InputField, Button, ButtonText, Icon, Image} from '@gluestack-ui/themed';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 function Login  (){
-
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleBackPress = () => {
+    navigation.goBack(); // Volver a la pantalla anterior
+  };
 
   const handleLogin = () => {
     // Realiza la solicitud Axios aquí
@@ -96,13 +99,8 @@ function Login  (){
                 </ButtonText>
               </Button>
               <Box flexDirection='row'>
-                <Button variant='link' p='$0' size='sm'>
+                <Button variant='link' p='$0' size='sm' onPress={handleBackPress}>
                   {/* ArrowLeftIcon is imported from 'lucide-react-native' */}
-                  <Icon
-                    size='md'
-                    mr='$1'
-                    //as={ArrowLeftIcon}
-                  />
                   <ButtonText color={'#B35340'}
                   >
                     Back
