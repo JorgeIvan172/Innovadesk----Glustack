@@ -8,11 +8,12 @@ import Rocket from './assets/Icons/Rocket';
 import Logo from './assets/Icons/Logo';
 
 import Login from './screens/Login';
+import Register from './screens/Register';
 
 export default function App() {
   return (
     <GluestackUIProvider config={config}>
-      <Login></Login>
+      <Register></Register>
     </GluestackUIProvider>
   );
 }

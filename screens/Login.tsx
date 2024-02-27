@@ -14,7 +14,7 @@ function Login  (){
 
   const handleLogin = () => {
     // Realiza la solicitud Axios aquí
-    axios.post('URL_DE_TU_API', {
+    axios.post('http://127.0.0.1:8000/api/login', {
       email: email,
       password: password,
     })
@@ -25,8 +25,20 @@ function Login  (){
     .catch(error => {
       // Manejar errores
       console.error('Error:', error);
+      if (error.response) {
+        // El servidor respondió con un estado diferente de 2xx
+        console.error('Status:', error.response.status);
+        console.error('Data:', error.response.data);
+      } else if (error.request) {
+        // La solicitud fue realizada pero no se recibió respuesta
+        console.error('No response received');
+      } else {
+        // Error durante la configuración de la solicitud
+        console.error('Error setting up the request:', error.message);
+      }
     });
   };
+  
   
 
 
@@ -59,6 +71,7 @@ function Login  (){
                   placeholder="Email Adress"
                   value={email}
                   onChangeText={(text) => setEmail(text)}
+                  onBlur={() => console.log('El campo de entrada ha perdido el foco')}
                 />
               </Input>
               <Input>
@@ -68,6 +81,7 @@ function Login  (){
                   placeholder="Password"
                   value={password}
                   onChangeText={(text) => setPassword(text)}
+                  onBlur={() => console.log('El campo de entrada ha perdido el foco')}
                 />
               </Input>
             </VStack>
