@@ -13,6 +13,7 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import Begin from './screens/Begin';
 import Products from './screens/Products';
+import Profile from './screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,9 +25,10 @@ export default function App() {
         <Stack.Navigator screenOptions={{
           headerShown: false, // Oculta la barra superior en todas las pantallas
         }}>
-          <Stack.Screen name="Products" component={Products} />
+          <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Begin" component={Begin} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Products" component={Products} />
           <Stack.Screen name="Register" component={Register} />
           
         </Stack.Navigator>

@@ -1,8 +1,10 @@
+// CatalogComponent.tsx
 import React, { useState, useEffect } from 'react';
+import { View, ScrollView } from 'react-native';
 import axios from 'axios';
-import { Box, Center, Text } from '@gluestack-ui/themed';
+import ProductComponent from './ProductTS';
 
-function Products() {
+const CatalogComponent: React.FC = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -10,7 +12,8 @@ function Products() {
     axios.get('http://127.0.0.1:8000/api/products')
       .then(response => {
         // Almacenar los productos en el estado local
-        setProducts(response.data);
+        setProducts(response.data[0]); // Accede al primer elemento del arreglo
+        console.log('Respuesta de la API:', response.data);
       })
       .catch(error => {
         console.error('Error fetching products:', error);
@@ -18,16 +21,14 @@ function Products() {
   }, []); // La dependencia vacía significa que este efecto se ejecutará solo una vez al montar el componente
 
   return (
-    <Center>
-      {products.map((product) => (
-        <Box key={product.id} p='$5' maxWidth='auto' borderWidth='$1' borderColor='$backgroundLight300' borderRadius='$lg' $dark-borderColor="$backgroundDark700">
-          <Text>Name: {product.name}</Text>
-          <Text>Price: {product.price}</Text>
-          {/* Otros detalles del producto... */}
-        </Box>
-      ))}
-    </Center>
+    <ScrollView>
+      <View>
+        {products.map(product => (
+          <ProductComponent key={product.id} product={product} />
+        ))}
+      </View>
+    </ScrollView>
   );
-}
+};
 
-export default Products;
+export default CatalogComponent;

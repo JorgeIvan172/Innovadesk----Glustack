@@ -8,7 +8,6 @@ import {
   InputField,
   Button,
   ButtonText,
-  Icon,
   Image,
   Center,
 } from '@gluestack-ui/themed';
@@ -30,29 +29,34 @@ function Register() {
   const handleRegister = () => {
     // Realiza la solicitud Axios para registrar usuarios aquí
     axios
-      .post('http://127.0.0.1:8000/api/register', {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        // Manejar la respuesta exitosa
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Manejar errores
-        console.error('Error:', error);
-        if (error.response) {
-          // El servidor respondió con un estado diferente de 2xx
-          console.error('Status:', error.response.status);
-          console.error('Data:', error.response.data);
-        } else if (error.request) {
-          // La solicitud fue realizada pero no se recibió respuesta
-          console.error('No response received');
-        } else {
-          // Error durante la configuración de la solicitud
-          console.error('Error setting up the request:', error.message);
-        }
-      });
+    .post('http://127.0.0.1:8000/api/register', {
+      name, 
+      email,
+      password,
+      phone,
+      // ... otros datos del formulario
+    })
+    .then(response => {
+      // Manejar la respuesta exitosa
+      console.log(response.data);
+    })
+    .catch(error => {
+      // Manejar errores
+      console.error('Error:', error);
+      if (error.response) {
+        // El servidor respondió con un estado diferente de 2xx
+        console.error('Status:', error.response.status);
+        console.error('Data:', error.response.data);
+        // Puedes mostrar un mensaje al usuario indicando que hubo un problema en el servidor
+      } else if (error.request) {
+        // La solicitud fue realizada pero no se recibió respuesta
+        console.error('No response received');
+      } else {
+        // Error durante la configuración de la solicitud
+        console.error('Error setting up the request:', error.message);
+      }
+    });
+  
   };
 
   return (
