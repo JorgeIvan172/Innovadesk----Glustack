@@ -9,7 +9,7 @@ const CatalogComponent: React.FC = () => {
 
   useEffect(() => {
     // Realizar la solicitud a la API
-    axios.get('http://127.0.0.1:8000/api/products')
+    axios.get('http://localhost/InnovaDesk---Backend/public/api/products')
       .then(response => {
         // Almacenar los productos en el estado local
         setProducts(response.data[0]); // Accede al primer elemento del arreglo

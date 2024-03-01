@@ -12,15 +12,18 @@ import {
   Center,
 } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../Context/AuthContext';
 
 
 
 function Register() {
   const navigation = useNavigation();
+  const {login} = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
 
   const handleBackPress = () => {
     navigation.goBack(); // Volver a la pantalla anterior
@@ -29,16 +32,20 @@ function Register() {
   const handleRegister = () => {
     // Realiza la solicitud Axios para registrar usuarios aquí
     axios
-    .post('http://127.0.0.1:8000/api/register', {
+    .post('http://localhost/InnovaDesk---Backend/public/api/register', {
       name, 
       email,
       password,
       phone,
+      address,
       // ... otros datos del formulario
     })
     .then(response => {
       // Manejar la respuesta exitosa
-      console.log(response.data);
+      const registeredUser = response.data;
+      login(registeredUser); // Almacena la información del usuario en el contexto de autenticación
+      console.log('Usuario registrado:', registeredUser);
+      navigation.navigate('Profile', { user: response.data }); 
     })
     .catch(error => {
       // Manejar errores
@@ -61,7 +68,7 @@ function Register() {
 
   return (
     <>
-      <Center backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
+      <Center flex={1} backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
         <Box
           p='$5'
           maxWidth='$96'
@@ -126,6 +133,17 @@ function Register() {
                 placeholder='Phone'
                 value={phone}
                 onChangeText={(text) => setPhone(text)}
+                onBlur={() => console.log('El campo de entrada ha perdido el foco')}
+              />
+            </Input>
+
+            <Input>
+              <InputField
+                py='$2'
+                color={'$white'}
+                placeholder='Adress'
+                value={address}
+                onChangeText={(text) => setAddress(text)}
                 onBlur={() => console.log('El campo de entrada ha perdido el foco')}
               />
             </Input>

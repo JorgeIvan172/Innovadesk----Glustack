@@ -5,8 +5,15 @@ import axios from 'axios';
 import { Box, GluestackUIProvider, Text, Center, VStack, Heading, Input, InputField, Button, ButtonText, Icon, Image} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
+interface LoginResponse {
+  name: string;
+  email: string;
+  phone: string;
+  // Añade otros campos según sea necesario
+}
 
 function Login  (){
+  const {login} = useAuth();
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,31 +23,42 @@ function Login  (){
   };
 
   const handleLogin = () => {
-    // Realiza la solicitud Axios aquí
-    axios.post('http://127.0.0.1:8000/api/login', {
-      email: email,
-      password: password,
-    })
-    .then(response => {
-      // Manejar la respuesta exitosa
-      console.log(response.data);
-    })
-    .catch(error => {
-      // Manejar errores
-      console.error('Error:', error);
-      if (error.response) {
-        // El servidor respondió con un estado diferente de 2xx
-        console.error('Status:', error.response.status);
-        console.error('Data:', error.response.data);
-      } else if (error.request) {
-        // La solicitud fue realizada pero no se recibió respuesta
-        console.error('No response received');
-      } else {
-        // Error durante la configuración de la solicitud
-        console.error('Error setting up the request:', error.message);
-      }
-    });
+    axios
+      .post('http://localhost/InnovaDesk---Backend/public/api/login', {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        // Manejar la respuesta exitosa
+        const userData = response.data;
+        login(userData);
+        console.log('Bienvenido:', userData);
+        navigation.navigate('Profile')
+      })
+      .catch((error) => {
+        // Manejar errores
+        console.error('Error al iniciar sesión:', error);
+  
+        if (error.response) {
+          // El servidor respondió con un estado diferente de 2xx
+          console.error('Status:', error.response.status);
+          console.error('Data:', error.response.data);
+  
+          if (error.response.status === 401) {
+            // Credenciales incorrectas
+            console.error('Credenciales incorrectas');
+            // Puedes mostrar un mensaje al usuario indicando que las credenciales son incorrectas
+          }
+        } else if (error.request) {
+          // La solicitud fue realizada pero no se recibió respuesta
+          console.error('No response received');
+        } else {
+          // Error durante la configuración de la solicitud
+          console.error('Error setting up the request:', error.message);
+        }
+      });
   };
+  
   
   
 
@@ -48,7 +66,7 @@ function Login  (){
     return(
         <>
         
-        <Center backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
+        <Center flex={1} backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'} >
           <Box p='$5' maxWidth='$96' borderWidth='$1' borderColor='$backgroundLight300' borderRadius='$lg' $dark-borderColor="$backgroundDark700">
             <VStack space='xs' pb='$4' alignItems='center'>
               <Heading lineHeight={32} color={'$white'}>

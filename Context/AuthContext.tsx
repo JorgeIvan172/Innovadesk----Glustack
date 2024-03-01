@@ -1,50 +1,48 @@
 // AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, ReactNode, useState } from 'react';
 
-interface User {
-  id: string;
+interface UserData {
   name: string;
   email: string;
   phone: string;
+  address: string;
+  // Añade otros campos según sea necesario
 }
 
 interface AuthContextType {
-  user: User | null;
-  login: (userData: User) => void;
-  register: (userData: User) => Promise<void>;
+  userData: UserData | null;
+  login: (user: UserData) => void;
+  logout: () => void;
 }
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-  const login = (userData: User) => {
-    setUser(userData);
+  const login = (user: UserData) => {
+    setUserData(user);
   };
 
-  const register = (userData: User) => {
-    setUser(userData);
+  const logout = () => {
+    setUserData(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register }}>
+    <AuthContext.Provider value={{ userData, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-
   return context;
 };

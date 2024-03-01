@@ -55,7 +55,7 @@ function Begin (){
     return(
         <>
         
-        <Center backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
+        <Center flex={1} backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
           <Box p='$5' maxWidth='auto' borderWidth='$1' borderColor='$backgroundLight300' borderRadius='$lg' $dark-borderColor="$backgroundDark700">
             <VStack space='xs' pb='$4' alignItems='center'>
               <Heading lineHeight={32} color={'$white'}>
