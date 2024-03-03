@@ -13,6 +13,7 @@ import {
 } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../Context/AuthContext';
+import Alertt from './Alert';
 
 
 
@@ -30,6 +31,18 @@ function Register() {
   };
 
   const handleRegister = () => {
+
+    
+    if (!name || !email || !password || !phone || !address) {
+      // Al menos uno de los campos está vacío
+      console.error('Todos los campos son obligatorios');
+      <Alertt />
+      // Puedes mostrar un mensaje al usuario indicando que todos los campos son obligatorios
+      return;
+    }
+
+
+
     // Realiza la solicitud Axios para registrar usuarios aquí
     axios
     .post('http://localhost/InnovaDesk---Backend/public/api/register', {
