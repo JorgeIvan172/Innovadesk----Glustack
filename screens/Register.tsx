@@ -58,7 +58,7 @@ function Register() {
       const registeredUser = response.data;
       login(registeredUser); // Almacena la información del usuario en el contexto de autenticación
       console.log('Usuario registrado:', registeredUser);
-      navigation.navigate('Profile', { user: response.data }); 
+      navigation.navigate('Menu', { user: response.data }); 
     })
     .catch(error => {
       // Manejar errores

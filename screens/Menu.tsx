@@ -1,10 +1,15 @@
 // Menu.tsx
+{/* */}
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 
 import Profile from './Profile';
 import ProductComponent from './Products';
+import Login from './Login';
+import Register from './Register';
+import Begin from './Begin';
+
 
 const Tab = createBottomTabNavigator();
 

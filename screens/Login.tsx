@@ -33,7 +33,7 @@ function Login  (){
         const userData = response.data;
         login(userData);
         console.log('Bienvenido:', userData);
-        navigation.navigate('Profile')
+        navigation.navigate('Menu')
       })
       .catch((error) => {
         // Manejar errores
