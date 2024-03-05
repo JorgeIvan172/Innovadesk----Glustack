@@ -21,7 +21,7 @@ const CatalogComponent: React.FC = () => {
   }, []); // La dependencia vacía significa que este efecto se ejecutará solo una vez al montar el componente
 
   return (
-    <ScrollView ba>
+    <ScrollView style={{ backgroundColor: 'black'}}>
       <View>
         {products.map(product => (
           <ProductComponent key={product.id} product={product} />
@@ -30,5 +30,7 @@ const CatalogComponent: React.FC = () => {
     </ScrollView>
   );
 };
+
+
 
 export default CatalogComponent;
