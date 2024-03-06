@@ -22,17 +22,30 @@ const AnotherComponent = () => {
   };
 
   return (
-    <div>
-      <h2>Cart Items</h2>
-      <ul>
+    <Box flex={1} backgroundColor={'$black'} paddingTop={'$32'} paddingBottom={'$32'}>
+      <VStack space='xs' pb='$4' alignItems='center'>
+      <Heading lineHeight={32} color={'$white'}>Cart Items</Heading>
+      <Box>
         {cart.map((item) => (
-          <li key={item.id}>
+          <Text color='white' key={item.id} marginTop={'$3'} marginLeft={'$10'}>
             {item.name} - ${item.price}
-            <button onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
-          </li>
+
+            <Button
+                  size="xs"
+                  variant="outline"
+                  action="negative"
+                  isDisabled={false}
+                  isFocusVisible={false}
+                  onPress={handleRemoveFromCart}
+                >
+                  <ButtonText>Delete</ButtonText>
+            </Button>
+
+          </Text>
         ))}
-      </ul>
-    </div>
+      </Box>
+      </VStack>
+      </Box>
   );
 };
 
