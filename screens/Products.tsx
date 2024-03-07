@@ -40,11 +40,7 @@ const CatalogComponent: React.FC = () => {
 
   return (
     <>
-    <Box backgroundColor='black' paddingTop={'$10'} paddingLeft={'$2'} paddingRight={'$2'}>
-    
-        </Box>
     <ScrollView style={{ backgroundColor: 'black'}}>
-      
       <View>
       <Input  
     borderRadius={'$full'}>
