@@ -40,8 +40,9 @@ export default function App() {
           <Stack.Screen name="Begin" component={Begin} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" component={Login} />
+          
           <Stack.Screen name="OneProduct" component={OneProduct} />
-
+          
           
           
           
